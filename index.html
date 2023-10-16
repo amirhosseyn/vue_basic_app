@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            Vue js 3
-        </title>
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div id="app">
-            {{ msg }}
-        </div>
-    
-        <script src="vue3.0.7.js"></script>
-        <script>
-            const app = Vue.createApp({
-                data() {
-                    return {
-                        msg: "Hello Vue.js!"
-                    }
-                }
-            })
-    
-            app.mount("#app")
-        </script>
-    </body>
+<head>
+	<title>Vue.js 3</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+</head>
+<body>
+	<div id="app">
+		<div class="row">
+			<div class="col-md-8 mx-auto">
+				<h1 class="text-center m-3">Course</h1>
+				<hr>
+				<div v-if="bookmarkedCourses.length != 0">
+					<div v-for="course in bookmarkedCourses">
+						<p>{{ course.title }}</p>
+						<p>{{ course.author }}</p>
+						<p>{{ course.description }}</p>
+						<p>{{ course.likes }}</p>
+						<hr>
+					</div>
+				</div>
+				<div v-else>
+					<div class="alert alert-danger">
+						Nothing!
+					</div>
+					<hr>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="vue3.0.7.js"></script>
+	<script>
+		const app = Vue.createApp({
+			data() {
+				return {
+					courses: [
+						{
+							title: "Javascript",
+							author: "Mehran Tarif",
+							description: "I love javascript!",
+							likes: 101,
+							bookmark: true,
+						},
+						{
+							title: "Vue.js",
+							author: "Mehran Tarif",
+							description: "I love vue.js!",
+							likes: 10,
+							bookmark: false,
+						},
+						{
+							title: "React.js",
+							author: "Sam",
+							description: "I love react.js!",
+							likes: 30,
+							bookmark: true,
+						},
+					]
+				}
+			},
+			methods: {
+				
+			},
+			computed: {
+				isHot() {
+					if (this.likes >= 100) {
+						return "(HOT)"
+					}
+				},
+
+				bookmarkedCourses() {
+					return this.courses.filter(course => course.bookmark)
+				}
+			},
+			watch: {
+				
+			}
+		}).mount("#app")
+	</script>
+</body>
 </html>
